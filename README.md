@@ -3,11 +3,11 @@
 SampleOrderTransaction is a mock API built in WSO2 Synapse that demonstrates routing and response generation for different order types.
 The API reads the orderSystem value from the request payload and returns a sample JSON response for:
 
-- PAYMENT → Simulated payment transaction
+  PAYMENT → Simulated payment transaction
 
-- TOPUP → Simulated mobile/data top-up
+  TOPUP → Simulated mobile/data top-up
 
-- ECOMMERCE → Simulated e-commerce order
+  ECOMMERCE → Simulated e-commerce order
 
 This repository includes:
 
@@ -30,12 +30,15 @@ This repository includes:
 Example request:
 
 POST http://localhost:8280/sample/order/transaction/
+
 Content-Type: application/json
 
+ ```bash
 {
     "orderSystem": "PAYMENT",
     "orderId": "12345"
 }
+```
 
 Example success response (200 OK):
 
