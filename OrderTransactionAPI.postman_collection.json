@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "aa051a06-7ec6-48db-bf0b-fa9a82842ff3",
+		"name": "OrderTransactionAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15984134"
+	},
+	"item": [
+		{
+			"name": "OrderTransactionAPI",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderSystem\": \"TOPUP\",\r\n    \"orderId\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.178.73:8280/sample/order/transaction",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"178",
+						"73"
+					],
+					"port": "8280",
+					"path": [
+						"sample",
+						"order",
+						"transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderSystem\": \"TOPUP\",\r\n    \"orderId\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.178.73:8280/sample/order/transaction",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"178",
+								"73"
+							],
+							"port": "8280",
+							"path": [
+								"sample",
+								"order",
+								"transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Accept",
+							"value": "*/*"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Host",
+							"value": "192.168.178.73:8280"
+						},
+						{
+							"key": "Postman-Token",
+							"value": "db857935-cddf-4345-9538-93c87825e766"
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "content-type"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Aug 2025 16:40:58 GMT"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"OK!\"\n}"
+				},
+				{
+					"name": "400",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderSystem\": \"UNKNOWN\",\r\n    \"orderId\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.178.73:8280/sample/order/transaction",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"178",
+								"73"
+							],
+							"port": "8280",
+							"path": [
+								"sample",
+								"order",
+								"transaction"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Accept",
+							"value": "*/*"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Host",
+							"value": "192.168.178.73:8280"
+						},
+						{
+							"key": "Postman-Token",
+							"value": "6af51f0f-7c74-41a9-97e5-8160cadcb88b"
+						},
+						{
+							"key": "Accept-Encoding",
+							"value": "gzip, deflate, br"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "content-type"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Aug 2025 16:41:28 GMT"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "Close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 400,\n    \"message\": \"Bad Request!\"\n}"
+				}
+			]
+		}
+	]
+}

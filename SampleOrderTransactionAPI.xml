@@ -1,0 +1,158 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="SampleOrderTransaction" context="/sample/order/transaction">
+   <resource methods="POST" uri-template="/">
+      <inSequence>
+         <property name="finalPayload" expression="json-eval($)"/>
+         <filter xpath="//orderSystem">
+            <then>
+               <property name="orderSystem" expression="json-eval($.orderSystem)"/>
+               <filter xpath="//orderId">
+                  <then>
+                     <property name="orderId" expression="json-eval($.orderId)"/>
+                     <switch source="$ctx:orderSystem">
+                        <case regex="PAYMENT">
+                           <payloadFactory media-type="json">
+                                <format>
+                                    [    
+                                        {        
+                                            "class": "payment.transaction.card",
+                                            "id": "SAMPLE_ID",
+                                            "orderId": "$1",
+                                            "orderType": "SAMPLE_ORDER_TYPE",
+                                            "paymentType": "PURCHASE",
+                                            "status": "REQUESTED",
+                                            "ts": "SAMPLE_DATE",
+                                            "userId": "SAMPLE_USER_ID"    
+                                        }
+                                    ]
+                                </format>
+                              <args>
+                                <arg evaluator="xml" expression="$ctx:orderId"/>
+                              </args>
+                           </payloadFactory>
+                           <loopback/>
+                        </case>
+                        <case regex="TOPUP">
+                           <payloadFactory media-type="json">
+                              <format>
+                                    [    
+                                        {        
+                                            "amount": 100000,
+                                            "class": "topup.transaction",
+                                            "clientId": "SAMPLE_CLIENT_ID",
+                                            "createdts": "SAMPLE_DATE",
+                                            "id": "SAMPLE_ID",
+                                            "orderId": "$1",
+                                            "mno": "SAMPLE_OPERATOR",
+                                            "msisdn": "SAMPLE_PHONE_NUMBER",
+                                            "packageCode": "SAMPLE_PACKAGE_CODE",
+                                            "packageId": "SAMPLE_PACKAGE_ID",
+                                            "providerId": "SAMPLE_PROVIDER",
+                                            "referenceId": "SAMPLE_REFERENCE_ID",
+                                            "status": "APPROVED",
+                                            "transactionType": "PACKAGE",
+                                            "updatedts": "SAMPLE_DATE",
+                                            "userId": "SAMPLE_USER_ID"    
+                                        }
+                                    ]
+                              </format>
+                              <args>
+                                <arg evaluator="xml" expression="$ctx:orderId"/>
+                              </args>
+                           </payloadFactory>
+                           <loopback/>
+                        </case>
+                        <case regex="ECOMMERCE">
+                           <payloadFactory media-type="json">
+                                <format>
+                                    {
+                                        "id": "SAMPLE_ID",
+                                        "orderId": "$1",
+                                        "userId": "SAMPLE_USER_ID",
+                                        "owner": "SAMPLE_OWNER",
+                                        "couponUsageId": "SAMPLE_COUPON_USAGE_ID",
+                                        "status": "SHIPPED",
+                                        "items": [
+                                            {
+                                                "id": "SAMPLE_ID",
+                                                "productId": "SAMPLE_PRODUCT_ID",
+                                                "productItemId": "SAMPLE_PRODUCT_ITEM_ID",
+                                                "inventoryId": "SAMPLE_INVENTORY_ID",
+                                                "providerId": "SAMPLE_PROVIDER_ID",
+                                                "count": 1.0,
+                                                "fee": 1000,
+                                                "amount": 1000,
+                                                "discountAmount": 0,
+                                                "discountId": "SAMPLE_DISCOUNT_ID"
+                                            }
+                                        ],
+                                        "shipment": {
+                                            "id": "SAMPLE_ID",
+                                            "deliveryTime": "SAMPLE_DATE",
+                                            "fee": 5000,
+                                            "discountAmount": 0,
+                                            "discountId": "SAMPLE_DISCOUNT_ID",
+                                            "amount": 5000,
+                                            "city": "SAMPLE_CITY",
+                                            "postalCode": "SAMPLE_POSTAL_CODE",
+                                            "region": "SAMPLE_REGION",
+                                            "address": "SAMPLE_ADDRESS",
+                                            "lat": 0.0,
+                                            "lon": 0.0,
+                                            "extraDetails": null
+                                        },
+                                        "totalAmount": 10000,
+                                        "payableAmount": 10000,
+                                        "createdts": "SAMPLE_DATE",
+                                        "paymentInfo": {
+                                            "paymentId": "SAMPLE_PAYMENT_ID",
+                                            "gatewayId": "SAMPLE_GATEWAY_ID"
+                                        }
+                                    }
+                                </format>
+                                <args>
+                                 <arg evaluator="xml" expression="$ctx:orderId"/>
+                                </args>
+                           </payloadFactory>
+                           <loopback/>
+                        </case>
+                        <default/>
+                     </switch>
+                  </then>
+                  <else/>
+               </filter>
+            </then>
+            <else/>
+         </filter>
+         <property name="statusCode" value="400" scope="default" type="INTEGER"/>
+         <property name="message" value="Bad Request!" scope="default" type="STRING"/>
+         <property name="HTTP_SC" value="400" scope="axis2" type="STRING"/>
+         <payloadFactory media-type="json">
+            <format>{"code":$1,"message":"$2"}</format>
+            <args>
+               <arg evaluator="xml" expression="$ctx:statusCode"/>
+               <arg evaluator="xml" expression="$ctx:message"/>
+            </args>
+         </payloadFactory>
+         <respond/>
+      </inSequence>
+      <outSequence>
+         <script language="js">
+            var appendPayload = mc.getPayloadJSON(); 
+            var finalPayload = JSON.parse(mc.getProperty('finalPayload')); 
+            finalPayload.orderTransaction = appendPayload; 
+            mc.setProperty('finalPayload', JSON.stringify(finalPayload));
+         </script>
+         <property name="statusCode" value="200" scope="default" type="INTEGER"/>
+         <property name="message" value="OK!" scope="default" type="STRING"/>
+         <property name="HTTP_SC" value="200" scope="axis2" type="STRING"/>
+         <payloadFactory media-type="json">
+            <format>{"code":$1,"message":"$2"}</format>
+            <args>
+               <arg evaluator="xml" expression="$ctx:statusCode"/>
+               <arg evaluator="xml" expression="$ctx:message"/>
+            </args>
+         </payloadFactory>
+         <respond/>
+      </outSequence>
+   </resource>
+</api>
