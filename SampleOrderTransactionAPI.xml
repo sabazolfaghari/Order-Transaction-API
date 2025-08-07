@@ -14,7 +14,7 @@
                                 <format>
                                     [    
                                         {        
-                                            "class": "payment.transaction.card",
+                                            "class": "payment",
                                             "id": "SAMPLE_ID",
                                             "orderId": "$1",
                                             "orderType": "SAMPLE_ORDER_TYPE",
@@ -37,7 +37,7 @@
                                     [    
                                         {        
                                             "amount": 100000,
-                                            "class": "topup.transaction",
+                                            "class": "topup",
                                             "clientId": "SAMPLE_CLIENT_ID",
                                             "createdts": "SAMPLE_DATE",
                                             "id": "SAMPLE_ID",
@@ -136,23 +136,16 @@
          <respond/>
       </inSequence>
       <outSequence>
-         <script language="js">
-            var appendPayload = mc.getPayloadJSON(); 
-            var finalPayload = JSON.parse(mc.getProperty('finalPayload')); 
-            finalPayload.orderTransaction = appendPayload; 
-            mc.setProperty('finalPayload', JSON.stringify(finalPayload));
-         </script>
          <property name="statusCode" value="200" scope="default" type="INTEGER"/>
-         <property name="message" value="OK!" scope="default" type="STRING"/>
          <property name="HTTP_SC" value="200" scope="axis2" type="STRING"/>
          <payloadFactory media-type="json">
-            <format>{"code":$1,"message":"$2"}</format>
+            <format>{"code":$1,"message":"OK!"}</format>
             <args>
                <arg evaluator="xml" expression="$ctx:statusCode"/>
-               <arg evaluator="xml" expression="$ctx:message"/>
             </args>
          </payloadFactory>
          <respond/>
       </outSequence>
    </resource>
 </api>
+
