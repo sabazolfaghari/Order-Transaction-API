@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "aa051a06-7ec6-48db-bf0b-fa9a82842ff3",
+		"_postman_id": "aa022a16-7ec6-42bb-bf0b-fs9a83332ff3",
 		"name": "OrderTransactionAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15984134"
+		"_exporter_id": "15982224"
 	},
 	"item": [
 		{
@@ -24,7 +24,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.178.73:8280/sample/order/transaction",
+					"raw": "http://localhost:8280/sample/order/transaction",
 					"protocol": "http",
 					"host": [
 						"192",
@@ -56,7 +56,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.178.73:8280/sample/order/transaction",
+							"raw": "http://localhost:8280/sample/order/transaction",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -90,7 +90,7 @@
 						},
 						{
 							"key": "Host",
-							"value": "192.168.178.73:8280"
+							"value": "localhost:8280"
 						},
 						{
 							"key": "Postman-Token",
@@ -139,7 +139,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.178.73:8280/sample/order/transaction",
+							"raw": "http://localhost:8280/sample/order/transaction",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -173,7 +173,7 @@
 						},
 						{
 							"key": "Host",
-							"value": "192.168.178.73:8280"
+							"value": "localhost:8280"
 						},
 						{
 							"key": "Postman-Token",
